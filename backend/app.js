@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const {sequelize,DataTypes} = require("./init");
+const userRoute = require("./routes/user.route");
 
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,6 +10,7 @@ app.use((req,res,next)=>{
     next();
 });
 app.use(express.json());
+app.use("/api/user",userRoute);
 
 async function connect(){
     try {
