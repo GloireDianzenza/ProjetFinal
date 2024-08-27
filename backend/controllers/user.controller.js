@@ -89,4 +89,14 @@ async function editUser(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser};
+async function removeUser(req,res,next){
+    try{
+        const update = await sequelize.query(`DELETE FROM users WHERE email = '${req.body.email}'`);
+        res.status(201).json({message:"Utilisateur supprimé"});
+    }
+    catch(error){
+        res.status(404).json(error);
+    }
+}
+
+module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser,removeUser};

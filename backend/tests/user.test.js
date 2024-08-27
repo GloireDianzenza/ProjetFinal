@@ -27,27 +27,30 @@ describe("Users",()=>{
         console.log(res.body);
     });
 
-    // test("Should create an user",async ()=>{
-    //     bcrypt.hash("0000",10)
-    //     .then(async hash=>{
-    //         const res = await request(app).post("/api/user/").send({email:"tmp@gmail.com",password:hash});
-    //         console.log(res.body);
-    //         expect(res.statusCode).toEqual(201);
-    //     })
-    //     .catch(error=>{
-    //         return;
-    //     })
-    // });
-    
-    test("Should edit an user",async ()=>{
-        bcrypt.hash("toto",10)
+    test("Should create an user",async ()=>{
+        bcrypt.hash("0000",10)
         .then(async hash=>{
-            const res = await request(app).put("/api/user/").send({id:5,email:"tmp2@gmail.com",password:hash});
-            console.log(res.body);
+            const res = await request(app).post("/api/user/").send({email:"tmp@gmail.com",password:hash});
             expect(res.statusCode).toEqual(201);
         })
         .catch(error=>{
             return;
         })
+    });
+    
+    test("Should edit an user",async ()=>{
+        bcrypt.hash("toto",10)
+        .then(async hash=>{
+            const res = await request(app).put("/api/user/").send({id:8,email:"tmp2@gmail.com",password:hash});
+            expect(res.statusCode).toEqual(201);
+        })
+        .catch(error=>{
+            return;
+        })
+    });
+    
+    test("Should delete an user",async ()=>{
+        const res = await request(app).delete("/api/user/").send({email:"tmp2@gmail.com"});
+        expect(res.statusCode).toEqual(201);
     });
 });
