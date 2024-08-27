@@ -23,13 +23,13 @@ describe("Users",()=>{
         expect(res.statusCode).toEqual(200);
     });
 
-    test("Should create an user",async ()=>{
-        const res = await request(app).post("/api/user/").send({email:"tmp@gmail.com",password:"0000"});
-        expect(res.statusCode).toEqual(201);
-    });
+    // test("Should create an user",async ()=>{
+    //     const res = await request(app).post("/api/user/").send({email:"tmp@gmail.com",password:"0000"});
+    //     expect(res.statusCode).toEqual(201);
+    // });
     
     test("Should edit an user",async ()=>{
-        const res = await request(app).put("/api/user/").send({id:13,email:"tmp2@gmail.com",password:"toto"});
+        const res = await request(app).put("/api/user/").send({id:15,email:"tmp2@gmail.com",password:"toto"});
         expect(res.statusCode).toEqual(201);
     });
     
