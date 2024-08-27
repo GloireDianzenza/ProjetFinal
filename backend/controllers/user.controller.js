@@ -69,4 +69,22 @@ async function getAllAdmins(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,getAllAdmins};
+async function addUser(req,res,next){
+    try{
+        const user = User.create({...req.body});
+        res.status(201).json({message:"Utilisateur créé"});
+    }catch(error){
+        res.status(404).json(error);
+    }
+}
+
+async function editUser(req,res,next){
+    try{
+
+    }
+    catch(error){
+        res.status(404).json(error);
+    }
+}
+
+module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser};
