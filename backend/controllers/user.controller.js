@@ -72,8 +72,14 @@ async function getAllAdmins(req,res,next){
 
 async function addUser(req,res,next){
     try{
-        const user = User.create({...req.body});
-        res.status(201).json({message:"Utilisateur créé"});
+        bcrypt.hash(req.body.password,10)
+        .then(async hash=>{
+            const user = await User.create({email:req.body.email,password:hash});
+            res.status(201).json({message:"Utilisateur créé"});
+        })
+        .catch(error=>{
+            throw new Error(error);
+        })
     }catch(error){
         res.status(404).json(error);
     }
@@ -81,8 +87,14 @@ async function addUser(req,res,next){
 
 async function editUser(req,res,next){
     try{
-        const update = await sequelize.query(`UPDATE users SET email = '${req.body.email}', password = '${req.body.password}' WHERE id = ${req.body.id}`);
-        res.status(201).json({message:"Utilisateur modifié"});
+        bcrypt.hash(req.body.password,10)
+        .then(async hash=>{
+            const update = await sequelize.query(`UPDATE users SET email = '${req.body.email}', password = '${hash}' WHERE id = ${req.body.id}`);
+            res.status(201).json({message:"Utilisateur modifié"});
+        })
+        .catch(error=>{
+            throw new Error(error);
+        })
     }
     catch(error){
         res.status(404).json(error);
