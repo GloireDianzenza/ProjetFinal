@@ -1,4 +1,5 @@
 const { sequelize } = require("../init");
+const Post = require("../models/post.model");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
@@ -104,7 +105,17 @@ async function editUser(req,res,next){
 
 async function removeUser(req,res,next){
     try{
-        const update = await sequelize.query(`DELETE FROM users WHERE email = '${req.body.email}'`);
+        let findID = await User.findOne({where:{email:req.body.email}});
+        findID = findID.dataValues.id;
+
+        let posts = await Post.findAll({where:{UserId:findID}});
+        for(let p of posts){
+            const id = p.dataValues.id;
+            const deleteComments = await sequelize.query(`DELETE FROM comments WHERE PostId = ${id}`);
+        }
+
+        const deletePosts = await sequelize.query(`DELETE FROM posts WHERE UserId = ${findID}`);
+        const deleter = await sequelize.query(`DELETE FROM users WHERE email = '${req.body.email}'`);
         res.status(201).json({message:"Utilisateur supprimé"});
     }
     catch(error){

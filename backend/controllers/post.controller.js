@@ -102,7 +102,8 @@ async function removePost(req,res,next){
     //image = YES
     //user = NO
     try{
-        sequelize.query(`DELETE FROM posts WHERE id = ${req.body.id}`);
+        const deleteComments = await sequelize.query(`DELETE FROM comments WHERE PostId = ${req.body.id}`);
+        await sequelize.query(`DELETE FROM posts WHERE id = ${req.body.id}`);
         res.status(201).json({message:"Post supprimé"});
     }catch(error){
         res.status(404).json({error:"Conditions non respectées"})

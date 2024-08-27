@@ -12,6 +12,11 @@ describe("Comments",()=>{
         expect(res.statusCode).toEqual(201);
     });
     
+    // test("Should add a comment",async ()=>{
+    //     const res = await request(app).post("/api/comment/").send({value:"Testing",UserId:1,PostId:1});
+    //     expect(res.statusCode).toEqual(201);
+    // });
+    
     test("Should remove a comment",async ()=>{
         const res = await request(app).delete("/api/comment/6");
         expect(res.statusCode).toEqual(201);
