@@ -58,7 +58,6 @@ async function findUser(req,res,next){
 async function getAllAdmins(req,res,next){
     try{
         const admins = await User.findAll({where:{admin:1}});
-        console.log(admins);
         let result = [];
         for(let a of admins){
             result.push(a.dataValues);
