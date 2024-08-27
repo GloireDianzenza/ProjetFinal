@@ -1,3 +1,4 @@
+const { sequelize } = require("../init");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
@@ -80,11 +81,12 @@ async function addUser(req,res,next){
 
 async function editUser(req,res,next){
     try{
-
+        const update = await sequelize.query(`UPDATE users SET email = '${req.body.email}', password = '${req.body.password}' WHERE id = ${req.body.id}`);
+        res.status(201).json({message:"Utilisateur modifié"});
     }
     catch(error){
         res.status(404).json(error);
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser};
+module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser};
