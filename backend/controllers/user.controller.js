@@ -25,6 +25,7 @@ async function checkUser(req,res,next){
             .then(data=>{
                 if(data){
                     res.status(200).json(concernedUser.dataValues);
+                    return concernedUser.dataValues;
                 }
                 else{
                     throw new Error("Invalid password");
