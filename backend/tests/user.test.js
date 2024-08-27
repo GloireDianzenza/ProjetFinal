@@ -16,7 +16,7 @@ describe("Users",()=>{
     });
     
     test("Should return the requested user with the correct id",async ()=>{
-        const res = await request(app).get("/api/user/2/");
+        const res = await request(app).get("/api/user/user/2/");
         expect(res.statusCode).toEqual(200);
         console.log(res.body);
     });
