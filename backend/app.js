@@ -25,5 +25,6 @@ async function connect(){
     }
 }
 connect()
+sequelize.sync();
 
 module.exports = app;
