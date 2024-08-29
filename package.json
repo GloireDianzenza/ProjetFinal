@@ -10,7 +10,6 @@
   "name": "projetfinal",
   "version": "1.0.0",
   "main": "backend/server.js",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "start": "nodemon backend/server"

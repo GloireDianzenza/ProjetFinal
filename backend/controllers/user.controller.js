@@ -93,7 +93,9 @@ async function addUser(req,res,next){
         bcrypt.hash(req.body.password,10)
         .then(async hash=>{
             const user = await User.create({email:req.body.email,password:hash});
-            res.status(201).json({message:"Utilisateur créé"});
+            let newID = user.dataValues.id;
+            res.status(201).json({message:"Utilisateur créé",id:newID});
+            return {message:"Utilisateur créé",id:newID};
         })
         .catch(error=>{
             throw new Error(error);

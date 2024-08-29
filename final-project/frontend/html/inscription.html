@@ -8,6 +8,14 @@
     <link href="../../../src/output.css" rel="stylesheet">
 </head>
 <body>
-    <h1>S'inscrire</h1>
+    <div class="title flex flex-col justify-center items-center p-10 font-bold text-5xl">
+        <h1>S'inscrire</h1>
+    </div>
+    <form action="accueil.html" method="post" class="flex flex-col items-center justify-around w-full min-h-80">
+        <input type="email" name="email" placeholder="Email..." required class="text-3xl outline-none valid:bg-cyan-300 transition ease-in-out duration-300 p-5 rounded-md min-w-96 border-solid border-2 border-black">
+        <input type="password" name="password" placeholder="Mot de passe..." id="pwd" required class="text-3xl outline-none valid:bg-cyan-300 transition ease-in-out duration-300 p-5 rounded-md w-96 border-solid border-2 border-black">
+        <input type="submit" value="S'inscrire" class="text-4xl bg-red-300 p-6 rounded-3xl cursor-pointer hover:bg-red-600 transition duration-300 ease-in-out">
+    </form>
+    <script src="../js/signup.js" defer></script>
 </body>
 </html>
