@@ -33,7 +33,7 @@ form.addEventListener("submit",(event)=>{
         }
         else{
             if(data.admin == 1){
-
+                window.location = 'accueil_admin.html?id='+data.id;
             }
             else{
                 window.location = 'accueil.html?id='+data.id;
