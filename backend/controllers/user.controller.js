@@ -58,6 +58,22 @@ async function findUser(req,res,next){
     }
 }
 
+async function userExists(req,res,next){
+    try{
+        const user = await User.findOne({where:{email:req.body.email}});
+        if(user == null){
+            res.status(200).json({});
+            return {};
+        }
+        else{
+            res.status(200).json(user.dataValues);
+            return user.dataValues;
+        }
+    }catch(error){
+        res.status(404).json({error:"An unknown error occured"});
+    }
+}
+
 async function getAllAdmins(req,res,next){
     try{
         const admins = await User.findAll({where:{admin:1}});
@@ -123,4 +139,4 @@ async function removeUser(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser,removeUser};
+module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser};
