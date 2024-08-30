@@ -2,6 +2,7 @@ const { sequelize } = require("../init");
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 async function getAllUsers(req,res,next){
     try{
@@ -143,8 +144,11 @@ async function removeUser(req,res,next){
 
 async function generateToken(req,res,next){
     try{
-        console.log(req.body);
-        res.status(201).json({});
+        let secretKey = process.env.JWT_SECRET_KEY;
+        let data = req.body
+        const token = jwt.sign(data,secretKey);
+        console.log(token);
+        res.status(201).json({token:token,id:req.body.id});
     }catch(error){
         res.status(404).json(error);
     }

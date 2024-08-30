@@ -45,7 +45,27 @@ form.addEventListener("submit",(event)=>{
             .then(response=>response.json())
             .then(data=>{
                 console.log(data);
-                window.location = "accueil.html?id="+data.id;
+                let today = new Date();
+                let year = today.getFullYear().toString();
+                let month = (today.getMonth() + 1 < 10 ? "0" : "") + today.getMonth().toString();
+                let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
+
+                fetch("http://localhost:3500/api/user/user/token/generate",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                        'Accept':"application/json",
+                    },
+                    body:JSON.stringify({date:year+"-"+month+"-"+day,id:data.id})
+                })
+                .then(response=>response.json())
+                .then(data=>{
+                    console.log(data);
+                    window.location = "accueil.html?id="+data.id;
+                })
+                .catch(error=>{
+                    throw new Error(error);
+                })
             })
             .catch(error=>{console.error("error ",error)});
         }
