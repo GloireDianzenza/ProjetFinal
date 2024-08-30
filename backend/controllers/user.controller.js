@@ -147,6 +147,7 @@ async function generateToken(req,res,next){
         let secretKey = process.env.JWT_SECRET_KEY;
         let data = req.body
         const token = jwt.sign(data,secretKey);
+        process.env.TOKEN = token;
         console.log(token);
         res.status(201).json({token:token,id:req.body.id});
     }catch(error){
@@ -160,21 +161,19 @@ async function validateToken(req,res,next){
         let secretKey = process.env.JWT_SECRET_KEY;
 
         try{
-            const token = req.header(headerKey);
+            const token = process.env.TOKEN;
             const verified = jwt.verify(token,secretKey);
             if(verified){
-                res.status(200).json({token:verified});
+                res.status(200).json(verified);
             }
             else{
-                res.status(401).send("Error");
+                throw new Error("Token not valid");
             }
         }catch{
             throw new Error("Token couldn't be validated");
         }
-
-        res.status(200).json({});
     }catch(error){
-        res.status(404).json(error);
+        res.status(404).json({error:true});
     }
 }
 
