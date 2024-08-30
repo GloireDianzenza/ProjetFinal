@@ -1,4 +1,4 @@
-fetch("http://localhost:3500/api/user/user/token/validate")
+fetch("http://localhost:3500/api/user/user/token/validate/"+new URL(window.location).searchParams.get("id"))
 .then(response=>response.json())
 .then(data=>{
     console.log(data)

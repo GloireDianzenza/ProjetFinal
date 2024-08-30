@@ -12,6 +12,6 @@ router.put("/",(req,res,next)=>editUser(req,res,next));
 router.delete("/",(req,res,next)=>removeUser(req,res,next));
 
 router.post("/user/token/generate",(req,res,next)=>generateToken(req,res,next));
-router.get("/user/token/validate",(req,res,next)=>validateToken(req,res,next));
+router.get("/user/token/validate/:id",(req,res,next)=>validateToken(req,res,next));
 
 module.exports = router;

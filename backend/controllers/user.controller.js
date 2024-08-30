@@ -144,10 +144,13 @@ async function removeUser(req,res,next){
 
 async function generateToken(req,res,next){
     try{
+        process.env.TOKEN = "";
+        process.env.CONNECTED_ID = 0;
         let secretKey = process.env.JWT_SECRET_KEY;
         let data = req.body
         const token = jwt.sign(data,secretKey);
         process.env.TOKEN = token;
+        process.env.CONNECTED_ID = req.body.id;
         console.log(token);
         res.status(201).json({token:token,id:req.body.id});
     }catch(error){
@@ -164,6 +167,9 @@ async function validateToken(req,res,next){
             const token = process.env.TOKEN;
             const verified = jwt.verify(token,secretKey);
             if(verified){
+                if(process.env.CONNECTED_ID !== req.params.id){
+                    throw new Error("Token not valid");
+                }
                 res.status(200).json(verified);
             }
             else{
