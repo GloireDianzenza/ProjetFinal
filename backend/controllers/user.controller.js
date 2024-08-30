@@ -156,6 +156,22 @@ async function generateToken(req,res,next){
 
 async function validateToken(req,res,next){
     try{
+        let headerKey = process.env.TOKEN_HEADER_KEY;
+        let secretKey = process.env.JWT_SECRET_KEY;
+
+        try{
+            const token = req.header(headerKey);
+            const verified = jwt.verify(token,secretKey);
+            if(verified){
+                res.status(200).json({token:verified});
+            }
+            else{
+                res.status(401).send("Error");
+            }
+        }catch{
+            throw new Error("Token couldn't be validated");
+        }
+
         res.status(200).json({});
     }catch(error){
         res.status(404).json(error);
