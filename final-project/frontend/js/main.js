@@ -19,3 +19,5 @@ define().then(data=>{
         window.location = "index.html";
     }
 })
+
+console.log(logout);

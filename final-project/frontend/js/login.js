@@ -50,8 +50,8 @@ form.addEventListener("submit",(event)=>{
                 body:JSON.stringify({id:data.id,date:year+"-"+month+"-"+day})
             })
             .then(response=>response.json())
-            .then(data=>{
-                console.log(data);
+            .then(data2=>{
+                console.log(data2);
 
                 if(data.admin == 1){
                     window.location = 'accueil_admin.html?id='+data.id;
