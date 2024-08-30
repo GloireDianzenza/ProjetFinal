@@ -1,5 +1,6 @@
 const app = require("./app.js");
 const port = 3500;
+console.log(process.env);
 const http = require("http");
 const server = http.createServer(app);
 
