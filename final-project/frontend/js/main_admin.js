@@ -24,3 +24,18 @@ define().then(data=>{
     }
     window.location = "index.html";
 })
+
+logout.addEventListener("click",()=>{
+    fetch("http://localhost:3500/api/user/reset",{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+            'Accept':"application/json",
+        }
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+        window.location = "index.html";
+    })
+})

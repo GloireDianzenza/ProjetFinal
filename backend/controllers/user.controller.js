@@ -183,4 +183,13 @@ async function validateToken(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken,validateToken};
+async function resetToken(req,res,next){
+    try{
+        process.env.CONNECTED_ID = 0;
+        res.status(201).json({message:"Token reset"});
+    }catch{
+        res.status(404).json({error:true});
+    }
+}
+
+module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken,validateToken,resetToken};
