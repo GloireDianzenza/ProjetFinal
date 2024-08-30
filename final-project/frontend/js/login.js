@@ -29,15 +29,40 @@ form.addEventListener("submit",(event)=>{
     .then(data=>{
         if(data.id == undefined)
         {
+            alert("User not recognized");
+            document.querySelector("input[type=password]").value = "";
+            document.querySelector("input[type=email]").value = "";
             throw new Error("User not found");
         }
         else{
-            if(data.admin == 1){
-                window.location = 'accueil_admin.html?id='+data.id;
-            }
-            else{
-                window.location = 'accueil.html?id='+data.id;
-            }
+
+                let today = new Date();
+                let year = today.getFullYear().toString();
+                let month = (today.getMonth() + 1 < 10 ? "0" : "") + today.getMonth().toString();
+                let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
+
+            fetch("http://localhost:3500/api/user/user/token/generate",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    'Accept':"application/json",
+                },
+                body:JSON.stringify({id:data.id,date:year+"-"+month+"-"+day})
+            })
+            .then(response=>response.json())
+            .then(data=>{
+                console.log(data);
+
+                if(data.admin == 1){
+                    window.location = 'accueil_admin.html?id='+data.id;
+                }
+                else{
+                    window.location = 'accueil.html?id='+data.id;
+                }
+            })
+            .catch(error=>{
+                throw new Error(error);
+            })
         }
     })
     .catch(error=>{
