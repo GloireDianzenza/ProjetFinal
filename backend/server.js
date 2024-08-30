@@ -1,7 +1,7 @@
 const app = require("./app.js");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const port =process.env.PORT;
+const port =process.env.PORT || 3500;
 const http = require("http");
 const server = http.createServer(app);
 

@@ -141,4 +141,13 @@ async function removeUser(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser};
+async function generateToken(req,res,next){
+    try{
+        console.log(req.body);
+        res.status(201).json({});
+    }catch(error){
+        res.status(404).json(error);
+    }
+}
+
+module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken};
