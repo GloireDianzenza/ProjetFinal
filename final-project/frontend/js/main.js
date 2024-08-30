@@ -15,4 +15,7 @@ define().then(data=>{
 })
 .then(()=>{
     console.log(currentUser);
+    if(currentUser.error){
+        window.location = "index.html";
+    }
 })

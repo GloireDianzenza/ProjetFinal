@@ -47,8 +47,8 @@ form.addEventListener("submit",(event)=>{
                 console.log(data);
                 let today = new Date();
                 let year = today.getFullYear().toString();
-                let month = (today.getMonth() + 1 < 10 ? "0" : "") + today.getMonth().toString();
-                let day = (today.getDate() + 1 < 10 ? "0" : "") + (today.getDate()+1).toString();
+                let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
+                let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
 
                 fetch("http://localhost:3500/api/user/user/token/generate",{
                     method:"POST",
