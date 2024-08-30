@@ -1,4 +1,5 @@
 const app = require("./app.js");
+require("dotenv").config();
 const port = 3500;
 console.log(process.env);
 const http = require("http");
