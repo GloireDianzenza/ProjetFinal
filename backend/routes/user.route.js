@@ -1,4 +1,4 @@
-const {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser,removeUser,userExists, generateToken} = require("../controllers/user.controller");
+const {getAllUsers,checkUser,findUser,getAllAdmins,addUser,editUser,removeUser,userExists, generateToken,validateToken} = require("../controllers/user.controller");
 const express = require("express");
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.put("/",(req,res,next)=>editUser(req,res,next));
 router.delete("/",(req,res,next)=>removeUser(req,res,next));
 
 router.post("/user/token/generate",(req,res,next)=>generateToken(req,res,next));
+router.get("/user/token/validate",(req,res,next)=>validateToken(req,res,next));
 
 module.exports = router;

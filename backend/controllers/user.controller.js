@@ -154,4 +154,12 @@ async function generateToken(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken};
+async function validateToken(req,res,next){
+    try{
+        res.status(200).json({});
+    }catch(error){
+        res.status(404).json(error);
+    }
+}
+
+module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken,validateToken};
