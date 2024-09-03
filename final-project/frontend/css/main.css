@@ -1,0 +1,13 @@
+.post{
+    max-width: 400px !important;
+}
+
+.post img{
+    width: 300px;
+}
+
+@media screen and (max-width:500){
+    header{
+        flex-direction: column !important;
+    }
+}

@@ -5,16 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu principal</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/common.css">
     <link href="../../../src/output.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
 </head>
-<body>
-    <header class="flex flex-row justify-between items-center">
+<body class="w-screen transition duration-300 ease-in-out">
+    <header class="flex flex-row justify-between items-center p-5 w-screen">
         <div class="left p-5">
             <button id="logout" class="bg-red-400 p-3 rounded-md hover:bg-white hover:font-bold transition duration-300 ease-in-out">Déconnexion</button>
         </div>
-        <div class="right"></div>
+        <div class="center">
+            <h1 class="font-bold text-5xl text-center">The Social Experiment</h1>
+        </div>
+        <div class="right flex justify-between gap-5">
+            <button id="newPost" class="bg-green-300 border border-opacity-10 p-3 text-xl rounded-md hover:font-bold">Ajouter un post</button>
+            <button id="viewPosts" class="bg-yellow-200 border border-opacity-10 p-3 text-xl rounded-md hover:font-bold hover:bg-white hover:border-none">Voir vos posts</button>
+        </div>
     </header>
-    <main></main>
+    <main class="posts flex flex-wrap justify-around items-center gap-4 w-screen min-w-full">
+        <!-- <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center">
+            <h2 class="text-left">User</h2>
+            <strong class="text-center">Date</strong>
+            <img src="" alt="">
+            <p class="text-left">texte</p>
+        </div>
+        <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center">
+            <h2 class="text-left">Adam Warlock</h2>
+            <strong class="text-center">2024-01-05</strong>
+            <img src="" alt="">
+            <p class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempora optio blanditiis consectetur, similique delectus!</p>
+        </div> -->
+    </main>
     <footer></footer>
     <script src="../js/check_token.js" defer></script>
     <script src="../js/main.js" defer></script>
