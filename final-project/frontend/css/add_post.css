@@ -1,0 +1,12 @@
+.input-field{
+    display: flex;
+    width: 100% !important;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+}
+
+form img{
+    min-width: 300px;
+    height: auto;
+}

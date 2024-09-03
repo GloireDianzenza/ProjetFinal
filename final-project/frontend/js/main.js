@@ -48,7 +48,7 @@ fetch("http://localhost:3500/api/post/")
         .then(data2=>{
             userMail = data2.email;
 
-            let newPost = `
+            let newerPost = `
                 <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center flex flex-col gap-5">
                 <h2 class="text-left">${userMail}</h2>
                 <strong class="text-center">${post.date}</strong>
@@ -56,12 +56,13 @@ fetch("http://localhost:3500/api/post/")
                 <p class="text-left">${post.texte != null ? post.texte : ""}</p>
                 </div>
             `;
-            document.querySelector(".posts").innerHTML += newPost;
+            document.querySelector(".posts").innerHTML += newerPost;
         })
         .catch(error=>{
             throw new Error(error);
         })
     }
+    newPost.closest("a").href += id;
 })
 .catch(error=>{
     console.error("Error: ",error);

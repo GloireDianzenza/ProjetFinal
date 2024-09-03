@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../../../src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/add_post.css">
+  </head>
+  <body class="bg-white">
+    <header class="flex justify-around items-center p-5 text-xl">
+        <div class="left flex gap-8">
+            <button id="logout" class="bg-red-600 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Déconnexion</button>
+            <button id="return" class="bg-red-300 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Retour</button>
+        </div>
+        <div class="center">
+            <h1 class="text-2xl">Ajouter un post</h1>
+        </div>
+        <div class="right"></div>
+    </header>
+    <main class="flex flex-col justify-center items-center">
+        <form action="accueil.html" method="post" class="flex flex-col min-w-80 gap-5">
+            <div class="input-field">
+                <label for="txtInput">Nouveau texte</label>
+                <textarea name="texte" id="txtInput" class="border border-black outline-none"></textarea>
+            </div>
+            <div class="input-field">
+                <label for="imgInput">Lien image</label>
+                <input type="text" name="image" id="imgInput" class="border border-black outline-none">
+                <button type="button" id="previewBtn">Preview</button>
+            </div>
+            <div class="input-field">
+                <img src="" alt="" id="previewImg">
+            </div>
+            <input type="submit" value="Ajouter">
+        </form>
+    </main>
+    <footer></footer>
+    <script src="../js/check_token.js"></script>
+    <script src="../js/add_post.js"></script>
+  </body>
+</html>
