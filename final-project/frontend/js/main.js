@@ -49,14 +49,16 @@ fetch("http://localhost:3500/api/post/")
             userMail = data2.email;
 
             let newerPost = `
-                <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center flex flex-col gap-5">
                 <h2 class="text-left">${userMail}</h2>
                 <strong class="text-center">${post.date}</strong>
                 <img src="${post.image}" alt="">
                 <p class="text-left">${post.texte != null ? post.texte : ""}</p>
                 </div>
             `;
-            document.querySelector(".posts").innerHTML += newerPost;
+            let pst = document.createElement("div");
+            pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-32","text-center","flex","flex-col","gap-5");
+            pst.innerHTML = newerPost;
+            document.querySelector(".posts").appendChild(pst);
         })
         .catch(error=>{
             throw new Error(error);

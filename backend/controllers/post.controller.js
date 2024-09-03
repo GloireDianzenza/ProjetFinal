@@ -49,7 +49,7 @@ async function getAllPostsByUser(req,res,next){
     try{
         const user = await User.findOne({where:{email:req.body.email}});
         const id = user.dataValues.id;
-        const posts = await Post.findAll({where:{UserId:id},order:[['date','DESC']]});
+        const posts = await Post.findAll({where:{UserId:id},order:[['date','DESC'],['id',"ASC"]]});
         let result = [];
         for(let p of posts){
             result.push(p.dataValues);
