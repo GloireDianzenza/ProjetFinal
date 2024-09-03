@@ -53,7 +53,7 @@ form.addEventListener("submit",(event)=>{
     let img = imgInput.value;
     let ext = re.exec(img)[1];
     if((ext === undefined || ext !== "gif") && text.trim() === "")return;
-    else if(ext === undefined || ext !== "gif")return;
+    else if((ext === undefined || ext !== "gif") && img.trim() !== "")return;
 
     fetch("http://localhost:3500/api/user/user/"+id)
     .then(response=>response.json())
@@ -66,7 +66,19 @@ form.addEventListener("submit",(event)=>{
             newPost[k] = formData.get(k);
         }
         
-        
+        fetch("http://localhost:3500/api/post/",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                'Accept':"application/json",
+            },
+            body:JSON.stringify(newPost)
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+            window.location = "accueil.html?id="+id;
+        })
     })
     .catch(error=>{
         console.error("Error: ",error);
