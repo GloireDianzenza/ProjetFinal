@@ -51,6 +51,27 @@ form.addEventListener("submit",(event)=>{
     event.preventDefault();
     let text = txtInput.value;
     let img = imgInput.value;
+    let ext = re.exec(img)[1];
+    if((ext === undefined || ext !== "gif") && text.trim() === "")return;
+    else if(ext === undefined || ext !== "gif")return;
+
+    fetch("http://localhost:3500/api/user/user/"+id)
+    .then(response=>response.json())
+    .then(data=>{
+        mail.value = data.email;
+        let formData = new FormData(form,submitter);
+        let keys = ["email","texte","image"];
+        let newPost = {};
+        for(let k of keys){
+            newPost[k] = formData.get(k);
+        }
+        
+        
+    })
+    .catch(error=>{
+        console.error("Error: ",error);
+        window.location = "index.html";
+    })
 })
 
 previewBtn.addEventListener("click",()=>{
