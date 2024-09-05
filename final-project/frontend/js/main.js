@@ -35,12 +35,10 @@ logout.addEventListener("click",()=>{
     })
 });
 
-
-fetch("http://localhost:3500/api/post/")
-.then(response=>response.json())
-.then(data=>{
-    console.log(data);
-    for(let post of data){
+async function getPosts(){
+    let request = await fetch("http://localhost:3500/api/post/");
+    let result = await request.json();
+    for(let post of result){
         let dateSplit = post.date.split("-");
         let year = parseInt(dateSplit[0]);
         let month = parseInt(dateSplit[1])-1;
@@ -49,37 +47,40 @@ fetch("http://localhost:3500/api/post/")
         let currentDate = new Date(year,month,day);
         post.dateAlt = currentDate;
     }
-    data.sort((a,b)=>{
+    result.sort((a,b)=>{
         return b.dateAlt - a.dateAlt;
     });
-    for(let post of data){
+    result.sort((a,b)=>{
+        return b.dateAlt - a.dateAlt;
+    });
+    console.log(result);
+    
+    for(let post of result){
         let userMail = null;
-        console.log(post);
 
-        console.log(post.dateAlt);
         fetch("http://localhost:3500/api/user/user/"+post.UserId)
-        .then(response=>response.json())
-        .then(data2=>{
-            userMail = data2.email;
+            .then(response=>response.json())
+            .then(data2=>{
+                userMail = data2.email;
 
-            let newerPost = `
-                <h2 class="text-left">${userMail}</h2>
-                <strong class="text-center">${post.date}</strong>
-                <img src="${post.image}" alt="">
-                <p class="text-left">${post.texte != null ? post.texte : ""}</p>
-                </div>
-            `;
-            let pst = document.createElement("div");
-            pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-32","text-center","flex","flex-col","gap-5");
-            pst.innerHTML = newerPost;
-            document.querySelector(".posts").appendChild(pst);
-        })
-        .catch(error=>{
-            throw new Error(error);
-        })
+                let newerPost = `
+                    <h2 class="text-left">${userMail}</h2>
+                    <strong class="text-center">${post.date}</strong>
+                    <img src="${post.image}" alt="">
+                    <p class="text-left">${post.texte != null ? post.texte : ""}</p>
+                    </div>
+                `;
+                let pst = document.createElement("div");
+                pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-32","text-center","flex","flex-col","gap-5");
+                pst.innerHTML = newerPost;
+                document.querySelector(".posts").appendChild(pst);
+            })
+            .catch(error=>{
+                throw new Error(error);
+            });
     }
+
     newPost.closest("a").href += id;
-})
-.catch(error=>{
-    console.error("Error: ",error);
-})
+    viewPosts.closest("a").href += id;
+}
+getPosts();
