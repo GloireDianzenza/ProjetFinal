@@ -41,7 +41,22 @@ fetch("http://localhost:3500/api/post/")
 .then(data=>{
     console.log(data);
     for(let post of data){
+        let dateSplit = post.date.split("-");
+        let year = parseInt(dateSplit[0]);
+        let month = parseInt(dateSplit[1])-1;
+        let day = parseInt(dateSplit[2]);
+        
+        let currentDate = new Date(year,month,day);
+        post.dateAlt = currentDate;
+    }
+    data.sort((a,b)=>{
+        return b.dateAlt - a.dateAlt;
+    });
+    for(let post of data){
         let userMail = null;
+        console.log(post);
+
+        console.log(post.dateAlt);
         fetch("http://localhost:3500/api/user/user/"+post.UserId)
         .then(response=>response.json())
         .then(data2=>{
