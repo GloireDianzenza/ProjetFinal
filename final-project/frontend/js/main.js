@@ -41,7 +41,6 @@ fetch("http://localhost:3500/api/post/")
 .then(data=>{
     console.log(data);
     for(let post of data){
-
         let userMail = null;
         fetch("http://localhost:3500/api/user/user/"+post.UserId)
         .then(response=>response.json())

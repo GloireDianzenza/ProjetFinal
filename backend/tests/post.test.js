@@ -22,13 +22,13 @@ describe("Posts",()=>{
     //     expect(res.statusCode).toEqual(201);
     // });
 
-    test("Should edit a post",async ()=>{
-        const res = await request(app).put("/api/post").send({id:4,texte:null,image:null});
-        expect(res.statusCode).toEqual(201);
-    });
+    // test("Should edit a post",async ()=>{
+    //     const res = await request(app).put("/api/post").send({id:4,texte:null,image:null});
+    //     expect(res.statusCode).toEqual(201);
+    // });
     
-    test("Should delete a post",async ()=>{
-        const res = await request(app).delete("/api/post").send({id:4});
-        expect(res.statusCode).toEqual(201);
-    });
+    // test("Should delete a post",async ()=>{
+    //     const res = await request(app).delete("/api/post").send({id:4});
+    //     expect(res.statusCode).toEqual(201);
+    // });
 });

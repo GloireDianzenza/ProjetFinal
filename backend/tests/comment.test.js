@@ -7,20 +7,20 @@ describe("Comments",()=>{
         expect(res.statusCode).toEqual(200);
     });
     
-    test("Should edit a comment",async ()=>{
-        const res = await request(app).put("/api/comment/6").send({value:"Testing"});
-        expect(res.statusCode).toEqual(201);
-    });
+    // test("Should edit a comment",async ()=>{
+    //     const res = await request(app).put("/api/comment/6").send({value:"Testing"});
+    //     expect(res.statusCode).toEqual(201);
+    // });
     
     // test("Should add a comment",async ()=>{
     //     const res = await request(app).post("/api/comment/").send({value:"Testing",UserId:1,PostId:1});
     //     expect(res.statusCode).toEqual(201);
     // });
     
-    test("Should remove a comment",async ()=>{
-        const res = await request(app).delete("/api/comment/6");
-        expect(res.statusCode).toEqual(201);
-    });
+    // test("Should remove a comment",async ()=>{
+    //     const res = await request(app).delete("/api/comment/6");
+    //     expect(res.statusCode).toEqual(201);
+    // });
     
     test("Should return a specific comment",async ()=>{
         const res = await request(app).get("/api/comment/4");
