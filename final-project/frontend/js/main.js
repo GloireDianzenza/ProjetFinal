@@ -71,7 +71,7 @@ async function getPosts(){
                     </div>
                 `;
                 let pst = document.createElement("div");
-                pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-32","text-center","flex","flex-col","gap-5");
+                pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-60","text-center","flex","flex-col","gap-5");
                 pst.innerHTML = newerPost;
                 document.querySelector(".posts").appendChild(pst);
             })

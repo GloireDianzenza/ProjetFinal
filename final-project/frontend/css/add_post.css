@@ -10,3 +10,10 @@ form img{
     min-width: 300px;
     height: auto;
 }
+
+@media screen and (max-width:350px) {
+    .input-field{
+        max-width: 80% !important;
+        width: 100%;
+    }
+}

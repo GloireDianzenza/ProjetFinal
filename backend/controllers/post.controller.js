@@ -1,6 +1,7 @@
 const { sequelize } = require("../init");
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
+const Comment = require("../models/comment.model");
 
 async function getAllPosts(req,res,next){
     try{
@@ -88,7 +89,10 @@ async function editPost(req,res,next){
         const day = (today.getDate() < 10 ? "0" : "") + (today.getDate()).toString();
         const newDate = year+"-"+month+"-"+day;
 
-        sequelize.query(`UPDATE posts SET date = '${newDate}', texte = '${req.body.texte}', image = '${req.body.image}' WHERE id = ${req.body.id}`);
+        const post = await Post.findOne({where:{id:req.body.id}});
+        post.texte = req.body.texte;
+        post.image = req.body.image;
+        post.save();
         res.status(201).json({message:"Post modifié"});
     }catch(error){
         res.status(404).json({error:"Conditions non respectées"})
@@ -102,8 +106,12 @@ async function removePost(req,res,next){
     //image = YES
     //user = NO
     try{
-        const deleteComments = await sequelize.query(`DELETE FROM comments WHERE PostId = ${req.body.id}`);
-        await sequelize.query(`DELETE FROM posts WHERE id = ${req.body.id}`);
+        const comments = await Comment.findAll({where:{PostId:req.body.id}});
+        for(let c of comments){
+            c.destroy();
+        }
+        const post = await Post.findOne({where:{id:req.body.id}});
+        post.destroy();
         res.status(201).json({message:"Post supprimé"});
     }catch(error){
         res.status(404).json({error:"Conditions non respectées"})

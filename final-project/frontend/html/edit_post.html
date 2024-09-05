@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" class="w-screen">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="../../favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter Post</title>
+    <title>Modifier Post</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="../../../src/output.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/add_post.css">
   </head>
-  <body class="bg-white w-full">
-    <header class="flex justify-around items-center p-5 text-xl flex-col sm:flex-row">
+  <body class="bg-white">
+    <header class="flex justify-around items-center p-5 text-xl">
         <div class="left flex gap-8">
             <button id="logout" class="bg-red-600 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Déconnexion</button>
             <button id="return" class="bg-red-300 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Retour</button>
         </div>
         <div class="center">
-            <h1 class="text-2xl">Ajouter un post</h1>
+            <h1 class="text-2xl">Modifier un post</h1>
         </div>
         <div class="right"></div>
     </header>
     <main class="flex flex-col justify-center items-center">
         <form action="accueil.html" method="post" class="flex flex-col min-w-80 gap-5">
             <input type="hidden" name="email" value="" id="mail">
-            <div class="input-field ">
-                <label for="txtInput" class="text-sm sm:text-xl">Nouveau texte</label>
+            <div class="input-field">
+                <label for="txtInput" class="text-xl">Nouveau texte</label>
                 <textarea name="texte" id="txtInput" class="border border-black outline-none"></textarea>
             </div>
             <div class="input-field">
-                <label for="imgInput" class="text-sm sm:text-xl">Lien image</label>
+                <label for="imgInput" class="text-xl">Lien image</label>
                 <input type="text" name="image" id="imgInput" class="border border-black outline-none">
                 <button type="button" id="previewBtn">Preview</button>
             </div>
             <div class="input-field">
                 <img src="" alt="" id="previewImg">
             </div>
-            <input type="submit" value="Ajouter" class="text-xs sm:text-2xl bg-green-300 rounded-lg py-3 cursor-pointer hover:font-bold hover:bg-white transition duration-300 ease-in-out">
+            <input type="submit" value="Ajouter" class="text-2xl bg-green-300 rounded-lg py-3 cursor-pointer hover:font-bold hover:bg-white transition duration-300 ease-in-out">
         </form>
     </main>
     <footer></footer>
     <script src="../js/check_token.js"></script>
-    <script src="../js/add_post.js"></script>
+    <script src="../js/edit_post.js"></script>
   </body>
 </html>

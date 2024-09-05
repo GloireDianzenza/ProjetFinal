@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-11/12">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,8 @@
     <link href="../../../src/output.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
 </head>
-<body class="w-screen transition duration-300 ease-in-out">
-    <header class="flex flex-row justify-between items-center p-5 w-screen">
+<body class="w-full transition duration-300 ease-in-out">
+    <header class="flex flex-col sm:flex-row justify-between items-center p-5 w-full">
         <div class="left p-5">
             <button id="logout" class="bg-red-400 p-3 rounded-md hover:bg-white hover:font-bold transition duration-300 ease-in-out">Déconnexion</button>
         </div>
@@ -22,7 +22,7 @@
             <a href="your_posts.html?id="><button id="viewPosts" class="bg-yellow-200 border border-opacity-10 p-3 text-xl rounded-md hover:font-bold hover:bg-white hover:border-none transition duration-300 ease-in-out">Voir vos posts</button></a>
         </div>
     </header>
-    <main class="posts flex flex-row flex-wrap justify-around items-center gap-4 w-screen min-w-full">
+    <main class="posts flex flex-row flex-wrap justify-around items-center gap-4 w-screen max-w-full">
         <!-- <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center">
             <h2 class="text-left">User</h2>
             <strong class="text-center">Date</strong>
