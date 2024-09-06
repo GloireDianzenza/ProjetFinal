@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" class="w-11/12">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter commentaire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link href="../../../src/output.css" rel="stylesheet">
+</head>
+<body class="w-full transition duration-300 ease-in-out">
+    <header class="flex sm:flex-row flex-col justify-around items-center p-5 text-xl sm:gap-0 gap-3">
+        <div class="left flex gap-8">
+            <button id="logout" class="bg-red-600 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Déconnexion</button>
+            <button id="return" class="bg-red-300 p-3 rounded-lg hover:bg-white transition duration-300 ease-in-out">Retour</button>
+        </div>
+        <div class="center">
+            <h1 class="text-2xl text-center">Ajouter un commentaire</h1>
+        </div>
+    </header>
+    <main class="flex flex-col justify-start items-center gap-5">
+        <h2>Post publié par <span id="email">email@com</span></h2>
+        <h3 id="texte">texte</h3>
+        <img src="" alt="" class="min-w-72" id="image">
+        <div class="controls">
+            <form action="accueil.html" method="post" class="flex flex-col items-center justify-around min-h-40">
+                <textarea name="value" id="commentArea" class="border-2 border-black w-full"></textarea>
+                <input type="submit" value="Envoyer commentaire" class="bg-red-300 hover:bg-white transition ease-in-out duration-300 p-3 text-sm rounded-md cursor-pointer">
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="../js/check_token.js" defer></script>
+    <script src="../js/add_comment.js" defer></script>
+</body>
