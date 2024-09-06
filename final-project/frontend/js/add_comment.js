@@ -60,5 +60,20 @@ form.addEventListener("submit",(event)=>{
         newComment[k] = formData.get(k);
     }
     
-    
+    fetch("http://localhost:3500/api/comment/",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            'Accept':"application/json",
+        },
+        body:JSON.stringify(newComment)
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+        window.location = "accueil.html?id="+id;
+    })
+    .catch(error=>{
+        console.log(error);
+    })
 })
