@@ -75,36 +75,41 @@ async function getPosts(){
                     body:JSON.stringify({id:postID})
                 })
                 .then(response=>response.json())
-                .then(data3=>{
+                .then(async data3=>{
 
                     let commentHTML = "";
 
                     for(let comment of data3){
+                        let request = await fetch("http://localhost:3500/api/user/user/"+comment.UserId);
+                        let data4 = await request.json();
                         commentHTML += `
-                            <div class="comment flex flex-col justify-around items-center">
-                                <h2 class="text-left">${data2.email}</h2>
-                                <p class="text-xs">${comment.value}</p>
-                            </div>
-                        `;
+                                <div class="comment flex flex-col justify-around items-center">
+                                    <h2 class="text-left">${data4.email}</h2>
+                                    <p class="text-xs">${comment.value}</p>
+                                </div>
+                            `;
                     }
 
                     newerPost = `
-                        <h2 class="text-left">${userMail}</h2>
-                        <strong class="text-center">${post.date}</strong>
-                        <img src="${post.image}" alt="">
-                        <p class="text-left">${post.texte != null ? post.texte : ""}</p>
-                        <div class="comments flex flex-col justify-start items-center overflow-x-hidden overflow-y-scroll max-h-32 gap-2">
-                            ${commentHTML}
-                        </div>
-                        <div class="buttons flex justify-center items-center">
-                            <a href="add_comment.html?id=${id}&post=${post.id}"><button type="button" class="bg-yellow-300 p-2 mt-5 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button></a>
-                        </div>
-                    `;
+                                <h2 class="text-left">${userMail}</h2>
+                                <strong class="text-center">${post.date}</strong>
+                                <img src="${post.image}" alt="">
+                                <p class="text-left">${post.texte != null ? post.texte : ""}</p>
+                                <div class="comments flex flex-col justify-start items-center overflow-x-hidden overflow-y-scroll max-h-32 gap-2">
+                                    ${commentHTML}
+                                </div>
+                                <div class="buttons flex justify-center items-center">
+                                    <a href="add_comment.html?id=${id}&post=${post.id}"><button type="button" class="bg-yellow-300 p-2 mt-5 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button></a>
+                                </div>
+                            `;
 
-                    let pst = document.createElement("div");
-                    pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-60","text-center","flex","flex-col","gap-5");
-                    pst.innerHTML = newerPost;
-                    document.querySelector(".posts").appendChild(pst);
+                            let pst = document.createElement("div");
+                            pst.classList.add("post","p-3","shadow-xl","rounded-lg","border-black","border-opacity-10","min-w-60","text-center","flex","flex-col","gap-5");
+                            pst.innerHTML = newerPost;
+                            document.querySelector(".posts").appendChild(pst);
+
+
+
                     })
                 .catch(error=>{throw new Error(error)});
 

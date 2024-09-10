@@ -18,6 +18,8 @@ define().then(lst=>{
 })
 .then(()=>{
     console.log(currentUser,currentPost);
+    id = currentUser.id;
+    postID = currentPost.id;
     if(currentUser.error || currentPost.error){
         window.location = "index.html";
     }
