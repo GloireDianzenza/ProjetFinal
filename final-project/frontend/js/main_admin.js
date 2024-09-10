@@ -87,6 +87,8 @@ async function getPosts() {
             document.querySelector(".posts").innerHTML += newPost;
         }
 
+        newPost.closest('a').href += id;
+
         document.querySelectorAll(".deleteBtn").forEach((val)=>{
             val.addEventListener("click",()=>{
                 let postID = val.parentNode.parentNode.getElementsByTagName("input")[0].value;
