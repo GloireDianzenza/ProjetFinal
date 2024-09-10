@@ -18,6 +18,9 @@ define().then(data=>{
     if(currentUser.error){
         window.location = "index.html";
     }
+    else if(currentUser.admin == 1){
+        window.location = "accueil_admin.html?id="+id;
+    }
 })
 
 logout.addEventListener("click",()=>{

@@ -69,6 +69,7 @@ async function getPosts() {
 
             let newPost = `
                 <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center flex flex-col gap-4">
+                    <input type="hidden" value="${post.id}">
                     <h2 class="text-left">${dataUser.email}</h2>
                     <strong class="text-center">${post.date}</strong>
                     <img src="${post.image}" alt="">
@@ -77,7 +78,7 @@ async function getPosts() {
                         ${commentHTML}
                     </div>
                     <div class="buttons flex justify-center items-center text-xs gap-2">
-                        <button type="button" class="bg-yellow-300 p-2 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button>
+                        <a href="add_comment.html?id=${id}&post=${post.id}"><button type="button" class="bg-yellow-300 p-2 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button></a>
                         <a href="edit_post_admin.html?id=${id}&post=${post.id}"><button class="editBtn bg-green-300 p-1.5 rounded-lg hover:font-bold hover:bg-white transition duration-300 ease-in-out">Modifier post</button></a>
                         <button class="deleteBtn bg-red-300 p-1.5 rounded-lg hover:font-bold hover:bg-white transition duration-300 ease-in-out">Supprimer post</button>
                     </div>
@@ -85,6 +86,32 @@ async function getPosts() {
             `;
             document.querySelector(".posts").innerHTML += newPost;
         }
+
+        document.querySelectorAll(".deleteBtn").forEach((val)=>{
+            val.addEventListener("click",()=>{
+                let postID = val.parentNode.parentNode.getElementsByTagName("input")[0].value;
+                postID = parseInt(postID);
+
+                if(window.confirm("Do you really wanna delete this post ?")){
+                    fetch("http://localhost:3500/api/post",{
+                        method:"DELETE",
+                        headers:{
+                            "Content-Type":"application/json",
+                            'Accept':"application/json",
+                        },
+                        body:JSON.stringify({id:postID})
+                    })
+                    .then(response=>response.json())
+                    .then(data=>{
+                        console.log(data);
+                        window.location = "accueil_admin.html?id="+id;
+                    })
+                    .catch(error=>{
+                        console.error("Error: ",error);
+                    })
+                }
+            })
+        })
     })
     .catch(error=>console.error("Error: ",error));
 }

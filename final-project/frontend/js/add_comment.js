@@ -1,6 +1,6 @@
 const url = new URL(window.location);
 const searchParam = url.searchParams;
-const id = searchParam.get("id");const postID = searchParam.get("post");
+let id = searchParam.get("id");let postID = searchParam.get("post");
 if(id == null || id.trim() == '' || postID == null || postID.trim() == '')window.location = "index.html";
 let currentUser,currentPost;
 
@@ -16,10 +16,17 @@ define().then(lst=>{
     currentUser = lst[0];
     currentPost = lst[1];
 })
-.then(()=>{
+.then(async ()=>{
     console.log(currentUser,currentPost);
     id = currentUser.id;
     postID = currentPost.id;
+    image.src = currentPost.image;
+    texte.innerText = currentPost.texte;
+
+    let postUser = await fetch("http://localhost:3500/api/user/user/"+currentPost.UserId);
+    postUser = await postUser.json();
+    email.innerText = postUser.email;
+
     if(currentUser.error || currentPost.error){
         window.location = "index.html";
     }
