@@ -19,6 +19,7 @@ define().then(data=>{
     let data = await request.json();
     for(let admin of data){
         if(admin.id == currentUser.id){
+            getPosts();
             return;
         }
     }
@@ -39,3 +40,7 @@ logout.addEventListener("click",()=>{
         window.location = "index.html";
     })
 })
+
+async function getPosts() {
+    console.log("ss");
+}
