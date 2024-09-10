@@ -78,7 +78,7 @@ async function getPosts() {
                     </div>
                     <div class="buttons flex justify-center items-center text-xs gap-2">
                         <button type="button" class="bg-yellow-300 p-2 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button>
-                        <a href="edit_post_admin.html"><button class="editBtn bg-green-300 p-1.5 rounded-lg hover:font-bold hover:bg-white transition duration-300 ease-in-out">Modifier post</button></a>
+                        <a href="edit_post_admin.html?id=${id}&post=${post.id}"><button class="editBtn bg-green-300 p-1.5 rounded-lg hover:font-bold hover:bg-white transition duration-300 ease-in-out">Modifier post</button></a>
                         <button class="deleteBtn bg-red-300 p-1.5 rounded-lg hover:font-bold hover:bg-white transition duration-300 ease-in-out">Supprimer post</button>
                     </div>
                 </div>

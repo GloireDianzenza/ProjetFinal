@@ -49,7 +49,7 @@ logout.addEventListener("click",()=>{
 });
 
 document.getElementById("return").addEventListener("click",()=>{
-    window.location = "./your_posts.html?id="+id;
+    window.location = "./accueil_admin.html?id="+id;
 })
 
 let form = document.querySelector("form");
@@ -57,6 +57,30 @@ let submitter = document.querySelector("input[type=submit]");
 
 form.addEventListener("submit",(event)=>{
     event.preventDefault();
+    let formData = new FormData(form,submitter);
+    formData.set("id",parseInt(postID));
+    let keys = ["id","texte","image"];
+    let newPost = {};
+    for(let k of keys){
+        newPost[k] = formData.get(k);
+    }
+    
+    fetch("http://localhost:3500/api/post/",{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json",
+            'Accept':"application/json",
+        },
+        body:JSON.stringify(newPost)
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        console.log(data);
+        window.location = "accueil_admin.html?id="+id;
+    })
+    .catch(error=>{
+        console.error("Error: ",error);
+    })
 });
 
 previewBtn.addEventListener("click",()=>{
