@@ -3,8 +3,8 @@ const app = require("../app");
 
 describe("Comments",()=>{
     test("Should return an array with all the comments",async ()=>{
-        const res = await request(app).get("/api/comment/");
-        expect(res.statusCode).toEqual(200);
+        const req = await request(app).get("/api/comment/");
+        expect(req.statusCode).toEqual(200);
     });
     
     // test("Should edit a comment",async ()=>{
