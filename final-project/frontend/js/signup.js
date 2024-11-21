@@ -16,6 +16,7 @@ form.addEventListener("submit",(event)=>{
         newUser[att] = formData.get(att);
     }
 
+    // Vérifie si l'email est déjà enregistré
     fetch("http://localhost:3500/api/user/user/exists/",{
         method:"POST",
         headers:{
@@ -34,6 +35,7 @@ form.addEventListener("submit",(event)=>{
             return;
         }
         else{
+            //Insère l'utilisateur dans la base de données
             fetch("http://localhost:3500/api/user/",{
                 method:"POST",
                 headers:{
@@ -50,6 +52,7 @@ form.addEventListener("submit",(event)=>{
                 let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
                 let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
 
+                //Génère un token
                 fetch("http://localhost:3500/api/user/user/token/generate",{
                     method:"POST",
                     headers:{

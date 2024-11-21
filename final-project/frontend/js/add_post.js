@@ -5,6 +5,8 @@ if(id == null || id.trim() == '')window.location = "index.html";
 let currentUser;
 const re = /(?:\.([^.]+))?$/;
 
+
+//Vérifier si le bon utilisateur est connecté, sinon sortie immédiate
 async function define(){
     let request = await fetch("http://localhost:3500/api/user/user/"+id);
     let data = await request.json();
@@ -21,6 +23,7 @@ define().then(data=>{
     }
 });
 
+//Déconnexion
 logout.addEventListener("click",()=>{
     fetch("http://localhost:3500/api/user/reset",{
         method:"PUT",
@@ -36,10 +39,12 @@ logout.addEventListener("click",()=>{
     })
 });
 
+//Bouton retour
 document.getElementById("return").addEventListener("click",()=>{
     window.location = "./accueil.html?id="+id;
 })
 
+//Récupérer l'id de l'utilisateur, générer la date d'aujourd'hui et la convertir en texte, ensuite récupérer le texte et l'image pour le nouveau post avant d'envoyer le tout dans la base de données
 let userID = parseInt(id);
 let currentDate = new Date();
 let newDate = currentDate.getFullYear().toString()+"-"+((currentDate.getMonth()+1 < 10 ? "0" : "") + (currentDate.getMonth()+1)).toString()+"-"
@@ -54,7 +59,10 @@ form.addEventListener("submit",(event)=>{
     let ext = re.exec(img)[1];
     if((ext === undefined || ext !== "gif") && text.trim() === "")return;
     else if((ext === undefined || ext !== "gif") && img.trim() !== "")return;
+    //N'accapter que les gif
+    //Return déclenché si (l'image n'est pas sous forme gif et texte vide) ou (image pas gif et input image non vide)
 
+    //Récupérer données utilisateur actuel
     fetch("http://localhost:3500/api/user/user/"+id)
     .then(response=>response.json())
     .then(data=>{
@@ -66,6 +74,7 @@ form.addEventListener("submit",(event)=>{
             newPost[k] = formData.get(k);
         }
         
+        //Ajout du post
         fetch("http://localhost:3500/api/post/",{
             method:"POST",
             headers:{
@@ -86,6 +95,7 @@ form.addEventListener("submit",(event)=>{
     })
 })
 
+//Remplit l'image avec le texte de l'input
 previewBtn.addEventListener("click",()=>{
     let ext = re.exec(imgInput.value)[1];
     if(ext === undefined || ext !== "gif")return;

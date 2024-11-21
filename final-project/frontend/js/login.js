@@ -17,6 +17,7 @@ form.addEventListener("submit",(event)=>{
         user[att] = formData.get(att);
     }
     
+    //Recherche l'utilisateur via les données du formulaire
     fetch("http://localhost:3500/api/user/single/",{
         method:"POST",
         headers:{
@@ -41,6 +42,7 @@ form.addEventListener("submit",(event)=>{
                 let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
                 let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
 
+            //Génère un token
             fetch("http://localhost:3500/api/user/user/token/generate",{
                 method:"POST",
                 headers:{

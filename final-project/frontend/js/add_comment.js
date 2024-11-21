@@ -4,6 +4,7 @@ let id = searchParam.get("id");let postID = searchParam.get("post");
 if(id == null || id.trim() == '' || postID == null || postID.trim() == '')window.location = "index.html";
 let currentUser,currentPost;
 
+//Processus pour vérifier si le bon utilisateur est connecté, sinon sortie immédiate
 async function define(){
     let request = await fetch("http://localhost:3500/api/user/user/"+id);
     let data = await request.json();
@@ -32,6 +33,7 @@ define().then(lst=>{
     }
 })
 
+//Déconnexion
 logout.addEventListener("click",()=>{
     fetch("http://localhost:3500/api/user/reset",{
         method:"PUT",
@@ -47,6 +49,7 @@ logout.addEventListener("click",()=>{
     })
 });
 
+//Retour
 document.getElementById("return").addEventListener("click",()=>{
     window.location = "accueil.html?id="+id;
 })
@@ -54,6 +57,7 @@ document.getElementById("return").addEventListener("click",()=>{
 let form = document.querySelector("form");
 let submitter = document.querySelector("input[type=submit]");
 
+//Confirmer ajout commentaire
 form.addEventListener("submit",(event)=>{
     event.preventDefault();
     let formData = new FormData(form,submitter);
