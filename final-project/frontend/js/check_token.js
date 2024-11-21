@@ -10,3 +10,5 @@ fetch("http://localhost:3500/api/user/user/token/validate/"+new URL(window.locat
     console.error("Error: ",error);
     window.location = "index.html"
 })
+
+//Opération pour vérifier le token renseigné dans .env

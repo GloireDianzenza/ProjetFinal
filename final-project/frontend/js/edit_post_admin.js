@@ -6,6 +6,8 @@ if(id == null || id.trim() == '' || postID == null || postID.trim() == '')window
 let currentUser,currentPost;
 const re = /(?:\.([^.]+))?$/;
 
+//Ne concerne que l'admin
+
 async function define(){
     let request = await fetch("http://localhost:3500/api/user/user/"+id);
     let data = await request.json();
@@ -55,6 +57,7 @@ document.getElementById("return").addEventListener("click",()=>{
 let form = document.querySelector("form");
 let submitter = document.querySelector("input[type=submit]");
 
+//Ajouter post
 form.addEventListener("submit",(event)=>{
     event.preventDefault();
     let formData = new FormData(form,submitter);
