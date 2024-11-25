@@ -1,6 +1,7 @@
 const { sequelize } = require("../init");
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
+const Comment = require("../models/comment.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -46,7 +47,7 @@ async function checkUser(req,res,next){
 
 async function findUser(req,res,next){
     try{
-        const user = await User.findOne({where:{id:req.params.id}});
+        const user = await User.findByPk(req.params.id);
         if(user !== null){
             res.status(200).json(user.dataValues);
             return user.dataValues;
@@ -107,10 +108,14 @@ async function addUser(req,res,next){
 }
 
 async function editUser(req,res,next){
+    const user = await User.findByPk(req.body.id);
+    if(user === null)throw new Error("User not found");
     try{
         bcrypt.hash(req.body.password,10)
         .then(async hash=>{
-            const update = await sequelize.query(`UPDATE users SET email = '${req.body.email}', password = '${hash}' WHERE id = ${req.body.id}`);
+            user.email = req.body.email;
+            user.password = hash;
+            user.save();
             res.status(201).json({message:"Utilisateur modifié"});
         })
         .catch(error=>{
@@ -130,11 +135,17 @@ async function removeUser(req,res,next){
         let posts = await Post.findAll({where:{UserId:findID}});
         for(let p of posts){
             const id = p.dataValues.id;
-            const deleteComments = await sequelize.query(`DELETE FROM comments WHERE PostId = ${id}`);
+            const comments = await Comment.findAll({where:{PostId:id}});
+            for(const c of comments){
+                c.destroy();
+            }
+            p.destroy();
         }
-
-        const deletePosts = await sequelize.query(`DELETE FROM posts WHERE UserId = ${findID}`);
-        const deleter = await sequelize.query(`DELETE FROM users WHERE email = '${req.body.email}'`);
+        
+        const targetUsers = await User.findAll({where:{email:req.body.email}});
+        for(const u of targetUsers){
+            u.destroy();
+        }
         res.status(201).json({message:"Utilisateur supprimé"});
     }
     catch(error){
