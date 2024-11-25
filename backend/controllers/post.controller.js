@@ -110,7 +110,7 @@ async function removePost(req,res,next){
         for(let c of comments){
             c.destroy();
         }
-        const post = await Post.findOne({where:{id:req.body.id}});
+        const post = await Post.findByPk(req.body.id);
         post.destroy();
         res.status(201).json({message:"Post supprimé"});
     }catch(error){
