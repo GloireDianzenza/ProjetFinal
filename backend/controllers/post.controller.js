@@ -33,7 +33,7 @@ async function getAllPostsOrdered(req,res,next){
 
 async function findPost(req,res,next){
     try{
-        const post = await Post.findOne({where:{id:req.params.id}});
+        const post = await Post.findByPk(req.params.id);
         if(post !== null){
             res.status(200).json(post.dataValues);
             return post.dataValues;
@@ -64,7 +64,6 @@ async function getAllPostsByUser(req,res,next){
 
 async function addPost(req,res,next){
     try{
-        console.log(req.body);
         let userId = await User.findOne({where:{email:req.body.email}});
         userId = userId.dataValues.id;
         const post = Post.create({
@@ -92,6 +91,7 @@ async function editPost(req,res,next){
         const post = await Post.findOne({where:{id:req.body.id}});
         post.texte = req.body.texte;
         post.image = req.body.image;
+        post.date = newDate;
         post.save();
         res.status(201).json({message:"Post modifié"});
     }catch(error){
