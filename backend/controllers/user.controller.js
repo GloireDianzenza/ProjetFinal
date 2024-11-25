@@ -1,4 +1,3 @@
-const { sequelize } = require("../init");
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
 const Comment = require("../models/comment.model");
@@ -91,6 +90,7 @@ async function getAllAdmins(req,res,next){
 }
 
 async function addUser(req,res,next){
+    if(!req.body.password || req.body.password.trim() === "")throw new Error("Password cannot be empty");
     try{
         bcrypt.hash(req.body.password,10)
         .then(async hash=>{
@@ -110,6 +110,12 @@ async function addUser(req,res,next){
 async function editUser(req,res,next){
     const user = await User.findByPk(req.body.id);
     if(user === null)throw new Error("User not found");
+    if(!req.body.password || req.body.password.trim()===""){
+        user.email = req.body.email;
+        user.save();
+        res.status(201).json({message:"Utilisateur modifié"});
+        return;
+    }
     try{
         bcrypt.hash(req.body.password,10)
         .then(async hash=>{
