@@ -63,7 +63,9 @@ async function addComment(req,res,next){
 async function editComment(req,res,next){
     try{
         const id = req.params.id;
-        const update = await sequelize.query(`UPDATE comments SET value = '${req.body.value}' WHERE id = ${id}`);
+        const comment = await Comment.findByPk(id);
+        comment.value = req.body.value;
+        comment.save();
         res.status(201).json({message:"Commentaire modifié"});
     }catch(error){
         res.status(404).json(error);
@@ -73,7 +75,8 @@ async function editComment(req,res,next){
 async function removeComment(req,res,next){
     try{
         const id = req.params.id;
-        const update = await sequelize.query(`DELETE FROM comments WHERE id = ${id}`);
+        const comment = await Comment.findByPk(id);
+        comment.destroy();
         res.status(201).json({message:"Commentaire supprimé"});
     }catch(error){
         res.status(404).json(error);
