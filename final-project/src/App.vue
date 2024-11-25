@@ -1,47 +1,82 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <header class="flex flex-col sm:flex-row justify-between items-center p-5 w-full">
+        <div class="left p-5">
+            <button id="logout" class="bg-red-400 p-3 rounded-md hover:bg-white hover:font-bold transition duration-300 ease-in-out">Déconnexion</button>
+        </div>
+        <div class="center">
+            <h1 class="font-bold text-5xl text-center">The Social Experiment</h1>
+        </div>
+        <div class="right flex justify-between gap-5">
+            <a href="./add_post.html?id="><button id="newPost" class="bg-green-300 border border-opacity-10 p-3 text-xl rounded-md hover:font-bold hover:bg-white hover:border-none transition duration-300 ease-in-out">Ajouter un post</button></a>
+            <a href="your_posts.html?id="><button id="viewPosts" class="bg-yellow-200 border border-opacity-10 p-3 text-xl rounded-md hover:font-bold hover:bg-white hover:border-none transition duration-300 ease-in-out">Voir vos posts</button></a>
+        </div>
+    </header>
+    <main class="posts flex flex-row flex-wrap justify-around items-center gap-4 w-screen max-w-full">
+        <!-- <div class="post p-3 shadow-xl rounded-lg border-black border border-opacity-10 min-w-32 text-center">
+            <h2 class="text-left">Adam Warlock</h2>
+            <strong class="text-center">2024-01-05</strong>
+            <img src="" alt="">
+            <p class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempora optio blanditiis consectetur, similique delectus!</p>
+            <div class="comments flex flex-col justify-start items-center overflow-x-hidden overflow-y-scroll max-h-32 gap-2">
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+                <div class="comment flex flex-col justify-around items-center">
+                    <h2 class="text-left">Thanos</h2>
+                    <p class="text-xs">I will decimate half of humans on Earth</p>
+                </div>
+            </div>
+            <div class="buttons flex justify-center items-center">
+                <button type="button" class="bg-yellow-300 p-2 mt-5 rounded-md hover:font-bold hover:bg-white transition duration-300 ease-in-out">Comment</button>
+            </div>
+        </div> -->
+    </main>
+    <footer></footer>
+    <script src="../js/check_token.js" defer></script>
+    <script src="../js/main.js" defer></script>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
