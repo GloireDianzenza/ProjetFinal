@@ -19,7 +19,7 @@ async function getAllComments(req,res,next){
 
 async function findComment(req,res,next){
     try{
-        const comments = await Comment.findOne({where:{id:req.params.id}});
+        const comments = await Comment.findByPk(req.params.id);
         if(comments === null){
             throw new Error("Comment not found");
         }
@@ -47,9 +47,9 @@ async function getCommentsByPost(req,res,next){
 
 async function addComment(req,res,next){
     try{
-        const testUser = await User.findOne({where:{id:req.body.UserId}});
+        const testUser = await User.findByPk(req.body.UserId);
         if(testUser === null)throw new Error("User not identified");
-        const testPost = await Post.findOne({where:{id:req.body.PostId}});
+        const testPost = await Post.findByPk(req.body.PostId);
         if(testPost === null)throw new Error("Post not identified");
         const comment = await Comment.create({
             ...req.body
