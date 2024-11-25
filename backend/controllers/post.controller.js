@@ -88,7 +88,7 @@ async function editPost(req,res,next){
         const day = (today.getDate() < 10 ? "0" : "") + (today.getDate()).toString();
         const newDate = year+"-"+month+"-"+day;
 
-        const post = await Post.findOne({where:{id:req.body.id}});
+        const post = await Post.findByPk(req.body.id);
         post.texte = req.body.texte;
         post.image = req.body.image;
         post.date = newDate;
