@@ -16,7 +16,7 @@ define().then(data=>{
 .then(()=>{
     console.log(currentUser);
     if(currentUser.error){
-        // window.location = "index.html";
+        window.location = "index.html";
     }
     else if(currentUser.admin == 1){
         window.location = "accueil_admin.html?id="+id;
@@ -33,8 +33,7 @@ logout.addEventListener("click",()=>{
     })
     .then(response=>response.json())
     .then(data=>{
-        console.log(data);
-        // window.location = "index.html";
+        window.location = "index.html";
     })
 });
 
