@@ -2,7 +2,7 @@ const {getAllPostsOrdered,findPost,getAllPostsByUser,addPost,editPost,removePost
 const express = require("express");
 const router = express.Router();
 
-router.get("/",(req,res,next)=>getAllPostsOrdered(req,res,next));
+router.get("/",(req,res,next) => getAllPostsOrdered(req,res,next));
 router.get("/:id",(req,res,next)=>findPost(req,res,next));
 router.post("/user",(req,res,next)=>getAllPostsByUser(req,res,next));
 router.post("/",(req,res,next)=>addPost(req,res,next));
