@@ -1,21 +1,6 @@
-const { sequelize } = require("../init");
 const Post = require("../models/post.model");
 const User = require("../models/user.model");
 const Comment = require("../models/comment.model");
-
-// async function getAllPosts(req,res,next){
-//     try{
-//         const posts = await Post.findAll();
-//         let result = [];
-//         for(let p of posts){
-//             result.push(p.dataValues);
-//         }
-//         res.status(200).json(result);
-//         return result;
-//     }catch(error){
-//         res.status(404).json(error);
-//     }
-// }
 
 async function getAllPostsOrdered(req,res,next){
     try{
@@ -76,11 +61,6 @@ async function addPost(req,res,next){
 }
 
 async function editPost(req,res,next){
-    //id = NON
-    //date = YES
-    //texte = YES
-    //image = YES
-    //user = NO
     try{
         const today = new Date();
         const year = today.getFullYear().toString();
@@ -100,11 +80,6 @@ async function editPost(req,res,next){
 }
 
 async function removePost(req,res,next){
-    //id = NON
-    //date = YES
-    //texte = YES
-    //image = YES
-    //user = NO
     try{
         const comments = await Comment.findAll({where:{PostId:req.body.id}});
         for(let c of comments){

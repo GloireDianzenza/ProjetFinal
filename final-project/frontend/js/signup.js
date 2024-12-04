@@ -51,23 +51,37 @@ form.addEventListener("submit",(event)=>{
                 let year = today.getFullYear().toString();
                 let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
                 let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
+                newUser.date = year+"-"+month+"-"+day;
 
                 //Génère un token
-                fetch("http://localhost:3500/api/user/user/token/generate",{
+                fetch("http://localhost:3500/api/user/single/",{
                     method:"POST",
                     headers:{
                         "Content-Type":"application/json",
                         'Accept':"application/json",
                     },
-                    body:JSON.stringify({date:year+"-"+month+"-"+day,id:data.id})
+                    body:JSON.stringify(newUser)
                 })
                 .then(response=>response.json())
                 .then(data=>{
-                    console.log(data);
-                    window.location = "accueil.html?id="+data.id;
+                    if(data.token === undefined || data.error)
+                    {
+                        alert("User not recognized");
+                        document.querySelector("input[type=password]").value = "";
+                        document.querySelector("input[type=email]").value = "";
+                        throw new Error("User not found");
+                    }
+                    else{
+                        if(data.admin == 1){
+                            window.location = 'accueil_admin.html?id='+data.id;
+                        }
+                        else{
+                            window.location = 'accueil.html?id='+data.id;
+                        }
+                    }
                 })
                 .catch(error=>{
-                    throw new Error(error);
+                    console.error("error ",error);
                 })
             })
             .catch(error=>{console.error("error ",error)});

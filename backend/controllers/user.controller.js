@@ -1,6 +1,4 @@
-const Post = require("../models/post.model");
 const User = require("../models/user.model");
-const Comment = require("../models/comment.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -33,8 +31,8 @@ async function checkUser(req,res,next){
                     const token = jwt.sign(data,secretKey);
                     process.env.TOKEN = token;
                     process.env.CONNECTED_ID = req.body.id;
-                    res.status(201).json({token:token});
-                    return {token};
+                    res.status(201).json({token:token,admin:concernedUser.dataValues.admin,id:concernedUser.dataValues.id});
+                    return {token,admin:concernedUser.dataValues.admin,id:concernedUser.dataValues.id};
                 }
                 else{
                     throw new Error("Invalid password");
@@ -82,19 +80,19 @@ async function userExists(req,res,next){
     }
 }
 
-async function getAllAdmins(req,res,next){
-    try{
-        const admins = await User.findAll({where:{admin:1}});
-        let result = [];
-        for(let a of admins){
-            result.push(a.dataValues);
-        }
-        res.status(200).json(result);
-        return result;
-    }catch(error){
-        res.status(404).json(error);
-    }
-}
+// async function getAllAdmins(req,res,next){
+//     try{
+//         const admins = await User.findAll({where:{admin:1}});
+//         let result = [];
+//         for(let a of admins){
+//             result.push(a.dataValues);
+//         }
+//         res.status(200).json(result);
+//         return result;
+//     }catch(error){
+//         res.status(404).json(error);
+//     }
+// }
 
 async function addUser(req,res,next){
     if(!req.body.password || req.body.password.trim() === "")throw new Error("Password cannot be empty");
@@ -114,57 +112,57 @@ async function addUser(req,res,next){
     }
 }
 
-async function editUser(req,res,next){
-    const user = await User.findByPk(req.body.id);
-    if(user === null)throw new Error("User not found");
-    if(!req.body.password || req.body.password.trim()===""){
-        user.email = req.body.email;
-        user.save();
-        res.status(201).json({message:"Utilisateur modifié"});
-        return;
-    }
-    try{
-        bcrypt.hash(req.body.password,10)
-        .then(async hash=>{
-            user.email = req.body.email;
-            user.password = hash;
-            user.save();
-            res.status(201).json({message:"Utilisateur modifié"});
-        })
-        .catch(error=>{
-            throw new Error(error);
-        })
-    }
-    catch(error){
-        res.status(404).json(error);
-    }
-}
+// async function editUser(req,res,next){
+//     const user = await User.findByPk(req.body.id);
+//     if(user === null)throw new Error("User not found");
+//     if(!req.body.password || req.body.password.trim()===""){
+//         user.email = req.body.email;
+//         user.save();
+//         res.status(201).json({message:"Utilisateur modifié"});
+//         return;
+//     }
+//     try{
+//         bcrypt.hash(req.body.password,10)
+//         .then(async hash=>{
+//             user.email = req.body.email;
+//             user.password = hash;
+//             user.save();
+//             res.status(201).json({message:"Utilisateur modifié"});
+//         })
+//         .catch(error=>{
+//             throw new Error(error);
+//         })
+//     }
+//     catch(error){
+//         res.status(404).json(error);
+//     }
+// }
 
-async function removeUser(req,res,next){
-    try{
-        let findID = await User.findOne({where:{email:req.body.email}});
-        findID = findID.dataValues.id;
+// async function removeUser(req,res,next){
+//     try{
+//         let findID = await User.findOne({where:{email:req.body.email}});
+//         findID = findID.dataValues.id;
 
-        let posts = await Post.findAll({where:{UserId:findID}});
-        for(let p of posts){
-            const id = p.dataValues.id;
-            const comments = await Comment.findAll({where:{PostId:id}});
-            for(const c of comments){
-                c.destroy();
-            }
-            p.destroy();
-        }
+//         let posts = await Post.findAll({where:{UserId:findID}});
+//         for(let p of posts){
+//             const id = p.dataValues.id;
+//             const comments = await Comment.findAll({where:{PostId:id}});
+//             for(const c of comments){
+//                 c.destroy();
+//             }
+//             p.destroy();
+//         }
         
-        const targetUsers = await User.findAll({where:{email:req.body.email}});
-        for(const u of targetUsers){
-            u.destroy();
-        }
-        res.status(201).json({message:"Utilisateur supprimé"});
-    }
-    catch(error){
-        res.status(404).json(error);
-    }
-}
+//         const targetUsers = await User.findAll({where:{email:req.body.email}});
+//         for(const u of targetUsers){
+//             u.destroy();
+//         }
+//         res.status(201).json({message:"Utilisateur supprimé"});
+//     }
+//     catch(error){
+//         res.status(404).json(error);
+//     }
+// }
 
 async function generateToken(req,res,next){
     try{
@@ -216,4 +214,4 @@ async function resetToken(req,res,next){
     }
 }
 
-module.exports = {getAllUsers,checkUser,findUser,userExists,getAllAdmins,addUser,editUser,removeUser,generateToken,validateToken,resetToken};
+module.exports = {getAllUsers,checkUser,findUser,userExists,addUser,validateToken,resetToken};

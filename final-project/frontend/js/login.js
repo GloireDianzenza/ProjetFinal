@@ -16,6 +16,13 @@ form.addEventListener("submit",(event)=>{
     for(let att of attributes){
         user[att] = formData.get(att);
     }
+
+    let today = new Date();
+                let year = today.getFullYear().toString();
+                let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
+                let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
+
+    user.date = year+"-"+month+"-"+day;
     
     //Recherche l'utilisateur via les données du formulaire
     fetch("http://localhost:3500/api/user/single/",{
@@ -28,7 +35,7 @@ form.addEventListener("submit",(event)=>{
     })
     .then(response=>response.json())
     .then(data=>{
-        if(data.id == undefined)
+        if(data.token === undefined || data.error)
         {
             alert("User not recognized");
             document.querySelector("input[type=password]").value = "";
@@ -36,35 +43,12 @@ form.addEventListener("submit",(event)=>{
             throw new Error("User not found");
         }
         else{
-
-                let today = new Date();
-                let year = today.getFullYear().toString();
-                let month = (today.getMonth() + 1 < 10 ? "0" : "") + (today.getMonth()+1).toString();
-                let day = (today.getDate() + 1 < 10 ? "0" : "") + today.getDate().toString();
-
-            //Génère un token
-            fetch("http://localhost:3500/api/user/user/token/generate",{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json",
-                    'Accept':"application/json",
-                },
-                body:JSON.stringify({id:data.id,date:year+"-"+month+"-"+day})
-            })
-            .then(response=>response.json())
-            .then(data2=>{
-                console.log(data2);
-
-                if(data.admin == 1){
-                    window.location = 'accueil_admin.html?id='+data.id;
-                }
-                else{
-                    window.location = 'accueil.html?id='+data.id;
-                }
-            })
-            .catch(error=>{
-                throw new Error(error);
-            })
+            if(data.admin == 1){
+                window.location = 'accueil_admin.html?id='+data.id;
+            }
+            else{
+                window.location = 'accueil.html?id='+data.id;
+            }
         }
     })
     .catch(error=>{
