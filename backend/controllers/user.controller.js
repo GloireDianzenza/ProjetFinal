@@ -26,8 +26,15 @@ async function checkUser(req,res,next){
             bcrypt.compare(req.body.password,actualPassword)
             .then(data=>{
                 if(data){
-                    res.status(200).json(concernedUser.dataValues);
-                    return concernedUser.dataValues;
+                    process.env.TOKEN = "";
+                    process.env.CONNECTED_ID = 0;
+                    let secretKey = process.env.JWT_SECRET_KEY;
+                    let data = req.body
+                    const token = jwt.sign(data,secretKey);
+                    process.env.TOKEN = token;
+                    process.env.CONNECTED_ID = req.body.id;
+                    res.status(201).json({token:token});
+                    return {token};
                 }
                 else{
                     throw new Error("Invalid password");
