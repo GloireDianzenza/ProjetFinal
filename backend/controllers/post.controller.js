@@ -67,7 +67,7 @@ async function addPost(req,res,next){
         let userId = await User.findOne({where:{email:req.body.email}});
         userId = userId.dataValues.id;
         const post = Post.create({
-            UserId:userId,texte:req.body.texte,image:req.body.image
+            UserId:userId,...req.body
         });
         res.status(201).json({message:"Post créé"});
     }catch(error){

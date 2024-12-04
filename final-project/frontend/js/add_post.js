@@ -73,6 +73,7 @@ form.addEventListener("submit",(event)=>{
         for(let k of keys){
             newPost[k] = formData.get(k);
         }
+        newPost.date = newDate;
         
         //Ajout du post
         fetch("http://localhost:3500/api/post/",{
