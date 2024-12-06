@@ -172,6 +172,7 @@ async function generateToken(req,res,next){
         let data = req.body
         const token = jwt.sign(data,secretKey);
         process.env.TOKEN = token;
+        console.log(req.body);
         process.env.CONNECTED_ID = req.body.id;
         console.log(token);
         res.status(201).json({token:token,id:req.body.id});

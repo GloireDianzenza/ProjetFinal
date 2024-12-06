@@ -14,7 +14,6 @@ define().then(data=>{
     currentUser = data;
 })
 .then(()=>{
-    console.log(currentUser);
     if(currentUser.error){
         window.location = "index.html";
     }
@@ -55,7 +54,6 @@ async function getPosts(){
     result.sort((a,b)=>{
         return b.dateAlt - a.dateAlt;
     });
-    console.log(result);
     
     for(let post of result){
         let userMail = null;

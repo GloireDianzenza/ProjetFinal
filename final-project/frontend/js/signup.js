@@ -72,6 +72,7 @@ form.addEventListener("submit",(event)=>{
                         throw new Error("User not found");
                     }
                     else{
+                        sessionStorage.setItem("data",JSON.stringify(data));
                         if(data.admin == 1){
                             window.location = 'accueil_admin.html?id='+data.id;
                         }

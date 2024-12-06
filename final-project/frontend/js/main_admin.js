@@ -15,15 +15,10 @@ define().then(data=>{
 })
 .then(async ()=>{
     // console.log(currentUser);
-    let request = await fetch("http://localhost:3500/api/user/admin");
+    let request = await fetch("http://localhost:3500/api/user/user/"+id);
     let data = await request.json();
-    for(let admin of data){
-        if(admin.id == currentUser.id){
-            getPosts();
-            return;
-        }
-    }
-    window.location = "index.html";
+    if(data.admin === 0)window.location = "index.html";
+    getPosts();
 })
 
 logout.addEventListener("click",()=>{
@@ -45,14 +40,13 @@ async function getPosts() {
     fetch("http://localhost:3500/api/post/")
     .then(response=>response.json())
     .then(async data=>{
-        console.log(data);
         for(let post of data){
             let request1 = await fetch("http://localhost:3500/api/user/user/"+post.UserId);
             let dataUser = await request1.json();
 
             let request2 = await fetch("http://localhost:3500/api/comment/list",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json",},body:JSON.stringify({id:post.id})});
             let dataComment = await request2.json();
-            console.log(dataComment);
+
             let commentHTML = "";
             for(let comment of dataComment){
                 

@@ -26,7 +26,6 @@ define().then(lst=>{
     currentPost = lst[1];
 })
 .then(()=>{
-    console.log(currentUser,currentPost);
     if(currentUser.error || currentPost.error){
         window.location = "index.html";
     }
